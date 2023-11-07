@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Matches {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  end     DateTime @db.Date
+  map     String
+  notes   String
+  players String[]
+  start   DateTime @db.Date
+  winner  String   @db.ObjectId
+}
+
+model Players {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt    DateTime @default(now())
+  description  String
+  losses       Int
+  matchHistory String[]
+  name         String
+  updatedAt    DateTime @updatedAt
+  wins         Int
+}
+
+model Settings {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  key   String @unique
+  value Json
+}
