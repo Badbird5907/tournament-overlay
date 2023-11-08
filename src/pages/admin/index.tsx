@@ -8,7 +8,9 @@ const AdminPage = (
 ) => {
   return (
     <AdminWrapper>
-
+      <div className={"flex flex-col items-center justify-center"}>
+        <h1 className={"text-4xl font-bold"}>Admin</h1>
+      </div>
     </AdminWrapper>
   );
 };

@@ -48,7 +48,9 @@ const MatchViewPage = ({
         <div className="flex items-center gap-4">
           <div>
             <h2 className="text-4xl font-semibold">{players[1].name}</h2>
-            <p className="text-2xl text-gray-400 font-bold">{players[1].description}</p>
+            <p className="text-2xl text-gray-400 font-bold">
+              {players[1].description}
+            </p>
           </div>
           <img
             alt="Player 2 Avatar"

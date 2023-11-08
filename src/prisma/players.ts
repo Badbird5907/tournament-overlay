@@ -1,4 +1,6 @@
 import prisma from "@/prisma/index";
+import { contains, paginate } from "@/prisma/util";
+import { PaginationConfig } from "@/types/pagination";
 export const getAllPlayers = async () => {
   return prisma.players.findMany();
 };
@@ -26,5 +28,26 @@ export const getPlayersByIds = async (ids: string[]) => {
         in: ids,
       },
     },
+  });
+};
+
+export const findPlayers = async (query: any) => {
+  // query could be { name: string, id: string, etc... }
+  return prisma.players.findMany({
+    where: {
+      ...query,
+    },
+  });
+};
+
+export const findPlayersPaginated = async (
+  query: any,
+  pagination: PaginationConfig
+) => {
+  return prisma.players.findMany({
+    where: {
+      ...query,
+    },
+    ...paginate(pagination),
   });
 };

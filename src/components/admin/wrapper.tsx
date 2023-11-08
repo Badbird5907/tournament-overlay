@@ -3,19 +3,21 @@ import {
   FaCheck,
   FaCog,
   FaEnvelope,
-  FaFlag, FaHome,
+  FaFlag,
+  FaHome,
   FaReceipt,
   FaShoppingCart,
   FaUsers,
 } from "react-icons/fa";
+import Link from "next/link";
 
 type AdminWrapperProps = {
-  children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 const AdminWrapper = (props: AdminWrapperProps) => {
   return (
-    <div className={"bg-gray-600 min-h-screen h-full"}>
-      <nav className="fixed top-0 z-50 w-full border-b bg-gray-800 border-gray-700">
+    <div className={"bg-gray-800 min-h-screen h-full"}>
+      <nav className="fixed top-0 z-50 w-full border-b bg-gray-800 border-gray-700 md:hidden">
         <div className="px-3 py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start">
@@ -66,11 +68,11 @@ const AdminWrapper = (props: AdminWrapperProps) => {
                   ></path>
                 </svg>
               </button>
-              <a href="/" className="flex ml-2 md:mr-24">
+              <Link href="/" className="flex ml-2 md:mr-24">
                 <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-white hover-circle">
                   Admin
                 </span>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -78,13 +80,13 @@ const AdminWrapper = (props: AdminWrapperProps) => {
 
       <aside
         id="logo-sidebar"
-        className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full border-r sm:translate-x-0 bg-gray-800 border-gray-700 sidebar-open"
+        className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 md:pt-4 transition-transform -translate-x-full border-r sm:translate-x-0 bg-gray-800 border-gray-700 sidebar-open"
         aria-label="Sidebar"
       >
         <div className="h-full px-3 pb-4 overflow-y-auto bg-gray-800">
           <ul className="space-y-2">
             <li>
-              <a
+              <Link
                 href="/admin/"
                 className="flex items-center p-2 text-base font-normal rounded-lg text-white hover:bg-gray-700"
               >
@@ -94,13 +96,26 @@ const AdminWrapper = (props: AdminWrapperProps) => {
                   }
                 />
                 <span className="ml-3 hover-circle">Home</span>
-              </a>
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/admin/players/"
+                className="flex items-center p-2 text-base font-normal rounded-lg text-white hover:bg-gray-700"
+              >
+                <FaUsers
+                  className={
+                    "w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white "
+                  }
+                />
+                <span className="ml-3 hover-circle">Players</span>
+              </Link>
             </li>
           </ul>
         </div>
       </aside>
 
-      <div className="p-8 sm:ml-64 text-white">{props.children}</div>
+      <div className="p-8 mt-12 md:mt-0 sm:ml-64 text-white">{props.children}</div>
     </div>
   );
 };

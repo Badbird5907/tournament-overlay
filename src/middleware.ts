@@ -1,5 +1,5 @@
-import {NextRequest, NextResponse} from "next/server";
-import {verifyToken} from "@/util/auth-server";
+import { NextRequest, NextResponse } from "next/server";
+import { verifyToken } from "@/util/auth-server";
 
 export async function middleware(request: NextRequest) {
   const url = request.nextUrl.clone();
@@ -10,15 +10,19 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(url);
     }
   } else if (request.nextUrl.pathname.startsWith("/api/admin")) {
-    if (!qrTrackerToken || !verifyToken(qrTrackerToken.value)) { // if the token is invalid
+    if (!qrTrackerToken || !verifyToken(qrTrackerToken.value)) {
+      // if the token is invalid
       // return 401
-      const response = new Response(JSON.stringify({
-        success: false,
-        message: "Unauthorized",
-        code: 401
-      }), {
-        status: 401,
-      });
+      const response = new Response(
+        JSON.stringify({
+          success: false,
+          message: "Unauthorized",
+          code: 401,
+        }),
+        {
+          status: 401,
+        }
+      );
       response.headers.set("Content-Type", "application/json");
       return response;
     }

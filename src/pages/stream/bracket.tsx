@@ -58,7 +58,7 @@ export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
               },
             ],
           },
-        ]),
+        ])
       ),
     },
   };
