@@ -19,6 +19,7 @@
     "react": "^18",
     "react-brackets": "^0.4.7",
     "react-dom": "^18",
+    "react-icons": "^4.11.0",
     "swr": "^2.2.4"
   },
   "devDependencies": {

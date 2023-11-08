@@ -24,7 +24,7 @@ const LeaderboardPage = (
       <TranslucentCard
         enable={props.translucent}
         transparency={0.95}
-        className={`rounded-lg w-1/3 ${
+        className={`rounded-lg w-1/4 ${
           props.position === "top-right"
             ? "right-0 top-0 absolute mr-2 mt-2"
             : ""
