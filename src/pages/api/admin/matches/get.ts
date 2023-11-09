@@ -5,19 +5,16 @@ import {
   ensureObjectId,
   ensureType,
   getPaginationConfig,
-  isObjectId, withMethods,
+  isObjectId,
 } from "@/util/server";
+import { findMatchesPaginated } from "@/prisma/matches";
 
-async function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { name, id, search } = req.query;
+  const { id, search } = req.query;
   const query: any = {};
-  if (name) {
-    if (!ensureType(name, "string", res)) return;
-    query["name"] = contains(name as string);
-  }
   if (id) {
     if (!ensureObjectId(id, res)) return;
     query["_id"] = {
@@ -28,26 +25,35 @@ async function handler(
     if (!ensureType(search, "string", res)) return;
     query["$or"] = [
       {
-        name: rawAggregateContains(search as string),
+        map: rawAggregateContains(search as string),
       },
       ...(isObjectId(search) ? [{ _id: toObjectId(search as string) }] : []),
       {
         description: rawAggregateContains(search as string),
       },
-      ...(!isNaN(parseInt(search as string))
+      {
+        notes: rawAggregateContains(search as string),
+      },
+      ...(isObjectId(search)
         ? [
-            { wins: parseInt(search as string) },
             {
-              losses: parseInt(search as string),
+              winner: toObjectId(search as string),
+            },
+            // players (oid[]) contains search
+            {
+              players: {
+                $elemMatch: {
+                  $eq: toObjectId(search as string),
+                },
+              },
             },
           ]
         : []),
     ];
   }
-  const players = await findPlayersPaginated(query, getPaginationConfig(req));
+  const players = await findMatchesPaginated(query, getPaginationConfig(req));
   res.status(200).json({
     success: true,
     ...players,
   });
 }
-export default withMethods(handler, "GET");

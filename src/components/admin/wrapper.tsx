@@ -10,6 +10,7 @@ import {
   FaUsers,
 } from "react-icons/fa";
 import Link from "next/link";
+import {LuSwords} from "react-icons/lu";
 
 type AdminWrapperProps = {
   children: React.ReactNode;
@@ -109,6 +110,19 @@ const AdminWrapper = (props: AdminWrapperProps) => {
                   }
                 />
                 <span className="ml-3 hover-circle">Players</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/admin/matches/"
+                className="flex items-center p-2 text-base font-normal rounded-lg text-white hover:bg-gray-700"
+              >
+                <LuSwords
+                  className={
+                    "w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white "
+                  }
+                />
+                <span className="ml-3 hover-circle">Matches</span>
               </Link>
             </li>
           </ul>

@@ -8,13 +8,13 @@ datasource db {
 }
 
 model Matches {
-  id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  end     DateTime @db.Date
-  map     String
-  notes   String
-  players String[]
-  start   DateTime @db.Date
-  winner  String   @db.ObjectId
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  end         DateTime @db.Date
+  map         String
+  description String
+  players     String[] @db.ObjectId
+  start       DateTime @db.Date
+  winner      String   @db.ObjectId
 }
 
 model Players {

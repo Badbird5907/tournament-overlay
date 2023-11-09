@@ -1,5 +1,5 @@
 import prisma from "@/prisma/index";
-import { contains, paginate } from "@/prisma/util";
+import {contains, paginate, paginateAggregate, paginatedQuery} from "@/prisma/util";
 import { PaginationConfig } from "@/types/pagination";
 export const getAllPlayers = async () => {
   return prisma.players.findMany();
@@ -44,10 +44,15 @@ export const findPlayersPaginated = async (
   query: any,
   pagination: PaginationConfig
 ) => {
-  return prisma.players.findMany({
+  return paginatedQuery(prisma.players, query, pagination);
+};
+
+export const deletePlayers = async (ids: string[]) => {
+  return prisma.players.deleteMany({
     where: {
-      ...query,
+      id: {
+        in: ids,
+      },
     },
-    ...paginate(pagination),
   });
 };
