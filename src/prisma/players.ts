@@ -37,6 +37,7 @@ export const getPlayersByIds = async (ids: string[]) => {
 };
 
 export const getPlayerById = async (id: string) => {
+  console.log("getPlayerById", id);
   return prisma.players.findUnique({
     where: {
       id,

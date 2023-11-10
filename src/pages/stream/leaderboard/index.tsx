@@ -36,7 +36,8 @@ const LeaderboardPage = (
         <h1 className={"text-xl text-gray-500 text-center"}>
           {props.endpoint} ({props.scope})
         </h1>
-        <table>
+        {/* for some odd reason the normal <table> element breaks the background transparency */}
+        <Table>
           <thead>
             <tr>
               <th className={"text-2xl font-bold"}>Name</th>
@@ -58,7 +59,7 @@ const LeaderboardPage = (
                 );
               })}
           </tbody>
-        </table>
+        </Table>
       </TranslucentCard>
     </div>
   );

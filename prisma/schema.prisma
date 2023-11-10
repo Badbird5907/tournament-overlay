@@ -27,6 +27,7 @@ model Players {
   updatedAt    DateTime @updatedAt
   wins         Int      @default(0)
   email        String
+  points       Int      @default(0)
 }
 
 model Settings {

@@ -7,6 +7,12 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const data = await getSetting("currentMatch");
+  if (!data) {
+    res.status(404).json({
+      message: "Match not found",
+    });
+    return;
+  }
   const d = await getMatchStatus(data);
   if (!d) {
     res.status(404).json({

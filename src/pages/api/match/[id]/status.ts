@@ -7,11 +7,26 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const id = req.query.id as string;
+  if (!id) {
+    console.log("Missing id");
+    res.status(400).json({
+      message: "Missing id",
+    });
+    return;
+  }
   const d = await getMatchStatus(id);
   res.status(d.status).json(d.data);
 }
 
 export const getMatchStatus = async (id: string) => {
+  if (!id) {
+    return {
+      data: {
+        message: "Missing id",
+      },
+      status: 400,
+    };
+  }
   const data = await getMatch(id);
   if (!data) {
     return {

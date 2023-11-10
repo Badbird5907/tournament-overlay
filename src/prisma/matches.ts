@@ -11,6 +11,7 @@ export const getAllMatches = async () => {
 };
 
 export const getMatch = async (id: string) => {
+  console.log("getMatch", id);
   return prisma.matches.findUnique({
     where: {
       id,

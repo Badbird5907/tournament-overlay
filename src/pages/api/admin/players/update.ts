@@ -7,7 +7,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const data = req.body;
   delete data.id;
   const player = await updatePlayer(id, data);
-  console.log(player);
   res.json({
     success: true,
     message: "Player updated",
