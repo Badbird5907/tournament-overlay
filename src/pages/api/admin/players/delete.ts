@@ -3,7 +3,7 @@ import { withMethods } from "@/util/server";
 import { deletePlayers } from "@/prisma/players";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { ids } = req.body;
+  const { ids } = req.body || req.query;
   if (!Array.isArray(ids)) {
     res.status(400).json({
       success: false,

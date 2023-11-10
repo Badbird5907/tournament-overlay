@@ -4,8 +4,8 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { Players } from ".prisma/client";
 import { getTopPlayers } from "@/prisma/players";
 import { TranslucentCard } from "@/components/translucent-card";
-import { Table } from "@mui/joy";
 import useSWR from "swr";
+import { Table } from "@mui/material";
 
 const LeaderboardPage = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -30,11 +30,13 @@ const LeaderboardPage = (
             : ""
         }`}
       >
-        <h1 className={"text-4xl font-bold text-center"}>Leaderboard</h1>
+        <h1 className={"text-4xl font-bold text-center"}>
+          {props.scope !== "all" ? "Match Players" : "Event Leaderboard"}
+        </h1>
         <h1 className={"text-xl text-gray-500 text-center"}>
           {props.endpoint} ({props.scope})
         </h1>
-        <Table aria-label="basic table">
+        <table>
           <thead>
             <tr>
               <th className={"text-2xl font-bold"}>Name</th>
@@ -56,7 +58,7 @@ const LeaderboardPage = (
                 );
               })}
           </tbody>
-        </Table>
+        </table>
       </TranslucentCard>
     </div>
   );
@@ -71,10 +73,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   return {
     props: {
       translucent,
-      players:
-        scope === "all"
-          ? JSON.parse(JSON.stringify(await getTopPlayers(max)))
-          : [],
+      players: scope === "all" ? await getTopPlayers(max) : [],
       endpoint:
         scope === "all"
           ? "/api/leaderboard"

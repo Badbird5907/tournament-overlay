@@ -17,7 +17,7 @@ type AdminWrapperProps = {
 };
 const AdminWrapper = (props: AdminWrapperProps) => {
   return (
-    <div className={"bg-gray-800 min-h-screen h-full"}>
+    <div className={"bg-gray-750 min-h-screen h-full"}>
       <nav className="fixed top-0 z-50 w-full border-b bg-gray-800 border-gray-700 md:hidden">
         <div className="px-3 py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">

@@ -13,12 +13,20 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { id, search } = req.query;
+  const { id, search, player } = req.query;
   const query: any = {};
   if (id) {
     if (!ensureObjectId(id, res)) return;
     query["_id"] = {
       $oid: id as string,
+    };
+  }
+  if (player) {
+    if (!ensureObjectId(player, res)) return;
+    query["players"] = {
+      $elemMatch: {
+        $eq: toObjectId(player as string),
+      },
     };
   }
   if (search) {
@@ -39,7 +47,6 @@ export default async function handler(
             {
               winner: toObjectId(search as string),
             },
-            // players (oid[]) contains search
             {
               players: {
                 $elemMatch: {

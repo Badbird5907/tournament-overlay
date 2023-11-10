@@ -3,14 +3,14 @@ import { verifyToken } from "@/util/auth-server";
 
 export async function middleware(request: NextRequest) {
   const url = request.nextUrl.clone();
-  const qrTrackerToken = request.cookies.get("tAdminToken");
+  const token = request.cookies.get("tAdminToken");
   if (request.nextUrl.pathname.startsWith("/admin")) {
-    if (!qrTrackerToken || !verifyToken(qrTrackerToken.value)) {
+    if (!token || !verifyToken(token.value)) {
       url.pathname = "/";
       return NextResponse.redirect(url);
     }
   } else if (request.nextUrl.pathname.startsWith("/api/admin")) {
-    if (!qrTrackerToken || !verifyToken(qrTrackerToken.value)) {
+    if (!token || !verifyToken(token.value)) {
       // if the token is invalid
       // return 401
       const response = new Response(

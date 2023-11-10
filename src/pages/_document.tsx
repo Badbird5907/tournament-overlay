@@ -1,5 +1,4 @@
 import { Html, Head, Main, NextScript } from "next/document";
-import { getInitColorSchemeScript } from "@mui/joy";
 
 export default function Document() {
   return (
@@ -18,7 +17,6 @@ export default function Document() {
         <link rel="stylesheet" href="/assets/css/swal.dark.min.css" />
       </Head>
       <body className={"dark"}>
-        {getInitColorSchemeScript({ defaultMode: "dark" })}
         <Main />
         <NextScript />
       </body>

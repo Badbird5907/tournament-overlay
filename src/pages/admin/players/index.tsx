@@ -14,6 +14,9 @@ import { MdAdd, MdDelete } from "react-icons/md";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import CustomButton from "@/components/button";
+import { FaEdit } from "react-icons/fa";
+import Link from "next/link";
+import {DebounceInput} from "react-debounce-input";
 
 const PlayersPage = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -142,6 +145,7 @@ const PlayersPage = (
                   setSubmitLoading(false);
                 });
             }}
+            className={"gap-4"}
           >
             <TextField
               id={"name"}
@@ -178,23 +182,17 @@ const PlayersPage = (
       <div className={"flex flex-col items-center justify-center"}>
         <h1 className={"text-4xl font-bold"}>Players</h1>
         <div className={"w-full flex flex-row justify-center py-4"}>
-          <TextField
-            placeholder={"Search"}
-            className={"w-full"}
+          <DebounceInput
+            debounceTimeout={300}
             onChange={(e) => {
               setQuery({ ...query, search: e.target.value });
             }}
+            placeholder={"Search"}
+            className={"w-full"}
+            element={TextField}
           />
-          {/*
-          <CustomButton
-            variant={"solid"}
-            className={"bg-blue-400 transition-all ml-2"}
-          >
-            Add
-          </CustomButton>
-          */}
         </div>
-        <div style={{ height: "78vh", width: "100%" }} className={"text-white"}>
+        <div className={"text-white w-full h-[75vh]"}>
           <DataGrid
             columns={[
               {
@@ -247,6 +245,18 @@ const PlayersPage = (
                 headerName: "Actions",
                 width: 200,
                 sortable: false,
+                renderCell: (params) => {
+                  return (
+                    <Link
+                      href={`/admin/players/${params.row.id}`}
+                      className={"w-full h-full"}
+                    >
+                      <Button variant={"text"} className={"w-full h-full"}>
+                        <FaEdit />
+                      </Button>
+                    </Link>
+                  );
+                },
               },
             ]}
             rows={players?.data || []}

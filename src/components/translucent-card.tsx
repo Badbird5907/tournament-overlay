@@ -1,5 +1,5 @@
-import { Card } from "@mui/joy";
 import { ComponentProps } from "react";
+import Card from "@/components/card";
 
 type TranslucentCardProps = {
   transparency?: number;

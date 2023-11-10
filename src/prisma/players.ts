@@ -36,6 +36,23 @@ export const getPlayersByIds = async (ids: string[]) => {
   });
 };
 
+export const getPlayerById = async (id: string) => {
+  return prisma.players.findUnique({
+    where: {
+      id,
+    },
+  });
+};
+
+export const updatePlayer = async (id: string, data: any) => {
+  return prisma.players.update({
+    where: {
+      id,
+    },
+    data,
+  });
+};
+
 export const findPlayers = async (query: any) => {
   // query could be { name: string, id: string, etc... }
   return prisma.players.findMany({

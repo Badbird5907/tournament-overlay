@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { ButtonProps, Button as MUIButton } from "@mui/joy";
+import { ButtonProps } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { FaX, FaCheck } from "react-icons/fa6";
 
 const CustomButton = ({
@@ -15,7 +16,7 @@ const CustomButton = ({
   onPress?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   toggle?: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
   showStatusColor?: boolean;
-} & React.ComponentProps<typeof MUIButton>) => {
+} & React.ComponentProps<typeof LoadingButton>) => {
   const [loading, setLoading] = React.useState(false);
   const [statusIcon, setStatusIcon] = React.useState<React.ReactNode | null>(
     null
@@ -31,7 +32,8 @@ const CustomButton = ({
   delete propsCopy.color;
   return (
     <>
-      <MUIButton
+      <LoadingButton
+        startIcon={statusIcon}
         color={btnColor || "primary"}
         onClick={(e) => {
           if (props.onClickLoading) {
@@ -67,7 +69,7 @@ const CustomButton = ({
                   setLoading(false);
                   if (showStatusColor) {
                     const originalColor = props.color;
-                    setBtnColor(error ? "danger" : "success");
+                    setBtnColor(error ? "error" : "success");
                     setStatusIcon(error ? <FaX /> : <FaCheck />);
                     setTimeout(() => {
                       setBtnColor(originalColor);
@@ -92,9 +94,8 @@ const CustomButton = ({
         loading={loading}
         {...propsCopy}
       >
-        {statusIcon}
         {props.children}
-      </MUIButton>
+      </LoadingButton>
     </>
   );
 };

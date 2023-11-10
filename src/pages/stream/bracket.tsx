@@ -1,4 +1,3 @@
-import { Card } from "@mui/joy";
 import { Bracket } from "react-brackets";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { TranslucentCard } from "@/components/translucent-card";

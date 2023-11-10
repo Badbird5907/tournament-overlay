@@ -1,5 +1,3 @@
-import { Card } from "@mui/joy";
-import { useEffect } from "react";
 import { TranslucentCard } from "@/components/translucent-card";
 
 const Index = () => {
