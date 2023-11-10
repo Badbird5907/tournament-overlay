@@ -10,7 +10,8 @@ export const getInputValues = (prefix: string) => {
         // check if the element type is a input
         if (element.tagName === "INPUT") {
           const input = element as HTMLInputElement;
-          if (input.type === "number") { // TODO: add more types
+          if (input.type === "number") {
+            // TODO: add more types
             values[newKey] = Number(input.value);
           } else values[newKey] = input.value;
         }

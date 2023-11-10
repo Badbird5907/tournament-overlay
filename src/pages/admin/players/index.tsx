@@ -16,7 +16,7 @@ import Swal from "sweetalert2";
 import CustomButton from "@/components/button";
 import { FaEdit } from "react-icons/fa";
 import Link from "next/link";
-import {DebounceInput} from "react-debounce-input";
+import { DebounceInput } from "react-debounce-input";
 
 const PlayersPage = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>

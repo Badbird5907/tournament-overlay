@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CustomButton from "@/components/button";
 import axios from "axios";
-import {Input, TextField} from "@mui/material";
+import { Input, TextField } from "@mui/material";
 import Card from "@/components/card";
 
 export default function Home() {
