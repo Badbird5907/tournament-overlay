@@ -5,9 +5,9 @@ import AdminWrapper from "@/components/admin/wrapper";
 import { Matches } from ".prisma/client";
 import axios from "axios";
 import { DataGrid } from "@mui/x-data-grid";
-import {Fab, TextField} from "@mui/material";
+import { Fab, TextField } from "@mui/material";
 import { PaginatedResponse } from "@/types/pagination";
-import {FaPlus} from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
 
 const MatchesPage = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>

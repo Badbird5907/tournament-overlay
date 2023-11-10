@@ -10,7 +10,7 @@ import {
   FaUsers,
 } from "react-icons/fa";
 import Link from "next/link";
-import {LuSwords} from "react-icons/lu";
+import { LuSwords } from "react-icons/lu";
 
 type AdminWrapperProps = {
   children: React.ReactNode;
@@ -129,7 +129,9 @@ const AdminWrapper = (props: AdminWrapperProps) => {
         </div>
       </aside>
 
-      <div className="p-8 mt-12 md:mt-0 sm:ml-64 text-white">{props.children}</div>
+      <div className="p-8 mt-12 md:mt-0 sm:ml-64 text-white">
+        {props.children}
+      </div>
     </div>
   );
 };

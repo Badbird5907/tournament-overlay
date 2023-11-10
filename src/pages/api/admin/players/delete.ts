@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import {withMethods} from "@/util/server";
-import {deletePlayers} from "@/prisma/players";
+import { withMethods } from "@/util/server";
+import { deletePlayers } from "@/prisma/players";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { ids } = req.body;
@@ -17,4 +17,4 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     message: "Successfully deleted players",
   });
 }
-export default withMethods(handler, "DELETE", "POST")
+export default withMethods(handler, "DELETE", "POST");

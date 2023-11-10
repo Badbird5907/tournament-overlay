@@ -1,5 +1,5 @@
 import { PaginationConfig } from "@/types/pagination";
-import {paginate, paginatedQuery} from "@/prisma/util";
+import { paginate, paginatedQuery } from "@/prisma/util";
 import prisma from "@/prisma/index";
 
 export const getAllMatches = async () => {

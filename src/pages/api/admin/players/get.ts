@@ -5,13 +5,11 @@ import {
   ensureObjectId,
   ensureType,
   getPaginationConfig,
-  isObjectId, withMethods,
+  isObjectId,
+  withMethods,
 } from "@/util/server";
 
-async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { name, id, search } = req.query;
   const query: any = {};
   if (name) {
