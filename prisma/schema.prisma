@@ -20,12 +20,13 @@ model Matches {
 model Players {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   createdAt    DateTime @default(now())
-  description  String
-  losses       Int
+  description  String   @default("")
+  losses       Int      @default(0)
   matchHistory String[]
   name         String
   updatedAt    DateTime @updatedAt
-  wins         Int
+  wins         Int      @default(0)
+  email        String
 }
 
 model Settings {

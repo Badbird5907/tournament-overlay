@@ -1,5 +1,10 @@
 import prisma from "@/prisma/index";
-import {contains, paginate, paginateAggregate, paginatedQuery} from "@/prisma/util";
+import {
+  contains,
+  paginate,
+  paginateAggregate,
+  paginatedQuery,
+} from "@/prisma/util";
 import { PaginationConfig } from "@/types/pagination";
 export const getAllPlayers = async () => {
   return prisma.players.findMany();
@@ -53,6 +58,20 @@ export const deletePlayers = async (ids: string[]) => {
       id: {
         in: ids,
       },
+    },
+  });
+};
+
+export const addPlayer = async (
+  name: string,
+  email: string,
+  description: string
+) => {
+  return prisma.players.create({
+    data: {
+      name,
+      email,
+      description,
     },
   });
 };

@@ -7,12 +7,13 @@ import {
   GridRowSelectionModel,
   GridToolbarContainer,
 } from "@mui/x-data-grid";
-import { Fab, TextField } from "@mui/material";
+import { Card, Fab, Modal, TextField } from "@mui/material";
 import { PaginatedResponse } from "@/types/pagination";
 import { Button } from "@mui/material";
 import { MdAdd, MdDelete } from "react-icons/md";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import CustomButton from "@/components/button";
 
 const PlayersPage = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -22,6 +23,8 @@ const PlayersPage = (
     PaginatedResponse<Players> | undefined
   >(undefined);
   const [selected, setSelected] = useState<string[]>([]);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [submitLoading, setSubmitLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const buildQueryUrl = () => {
@@ -48,7 +51,8 @@ const PlayersPage = (
           variant={"text"}
           startIcon={<MdAdd />}
           onClick={(e) => {
-            window.location.href = "/admin/players/add";
+            // window.location.href = "/admin/players/add";
+            setModalOpen(true);
           }}
         >
           Add
@@ -97,6 +101,80 @@ const PlayersPage = (
   };
   return (
     <AdminWrapper>
+      <Modal
+        open={modalOpen}
+        onClose={() => {
+          setModalOpen(false);
+        }}
+      >
+        <Card
+          className={
+            "p-4 w-1/3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50"
+          }
+        >
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              const name = (e.target as any).name.value;
+              const email = (e.target as any).email.value;
+              const description = (e.target as any).description.value;
+              axios
+                .post("/api/admin/players/add", {
+                  name,
+                  email,
+                  description,
+                })
+                .then((res) => {
+                  setModalOpen(false);
+                  Swal.fire({
+                    title: "Success",
+                    text: "Player added",
+                    icon: "success",
+                  }).then(() => {
+                    // force refresh
+                    setQuery({
+                      ...query,
+                      dummy: Math.random(),
+                    });
+                  });
+                })
+                .finally(() => {
+                  setSubmitLoading(false);
+                });
+            }}
+          >
+            <TextField
+              id={"name"}
+              label={"Name"}
+              variant={"outlined"}
+              className={"w-full mb-4"}
+              required
+            />
+            <TextField
+              id={"email"}
+              label={"Email"}
+              variant={"outlined"}
+              className={"w-full mb-4"}
+              required
+              type={"email"}
+            />
+            <TextField
+              id={"description"}
+              label={"Description"}
+              variant={"outlined"}
+              className={"w-full mb-4"}
+            />
+            <CustomButton
+              variant={"outlined"}
+              className={"w-full py-3"}
+              type={"submit"}
+              loading={submitLoading}
+            >
+              Add
+            </CustomButton>
+          </form>
+        </Card>
+      </Modal>
       <div className={"flex flex-col items-center justify-center"}>
         <h1 className={"text-4xl font-bold"}>Players</h1>
         <div className={"w-full flex flex-row justify-center py-4"}>
