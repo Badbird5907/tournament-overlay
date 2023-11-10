@@ -32,6 +32,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       {
         description: rawAggregateContains(search as string),
       },
+      {
+        email: rawAggregateContains(search as string),
+      },
       ...(!isNaN(parseInt(search as string))
         ? [
             { wins: parseInt(search as string) },

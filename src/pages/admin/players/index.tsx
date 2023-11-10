@@ -216,6 +216,12 @@ const PlayersPage = (
                 sortable: false,
               },
               {
+                field: "email",
+                headerName: "Email",
+                width: 220,
+                sortable: false,
+              },
+              {
                 field: "createdAt",
                 headerName: "Created At",
                 width: 200,
