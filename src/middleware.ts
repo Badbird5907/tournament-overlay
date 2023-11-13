@@ -3,14 +3,21 @@ import { verifyToken } from "@/util/auth-server";
 
 export async function middleware(request: NextRequest) {
   const url = request.nextUrl.clone();
-  const token = request.cookies.get("tAdminToken");
+  let token = request.cookies.get("tAdminToken")?.value;
+  const authorization = request.headers.get("Authorization");
+  if (!token && authorization) {
+    const [type, value] = authorization.split(" ");
+    if (type === "Bearer") {
+      token = value as string;
+    }
+  }
   if (request.nextUrl.pathname.startsWith("/admin")) {
-    if (!token || !verifyToken(token.value)) {
+    if (!token || !verifyToken(token)) {
       url.pathname = "/";
       return NextResponse.redirect(url);
     }
   } else if (request.nextUrl.pathname.startsWith("/api/admin")) {
-    if (!token || !verifyToken(token.value)) {
+    if (!token || !verifyToken(token)) {
       // if the token is invalid
       // return 401
       const response = new Response(

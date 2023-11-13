@@ -1,11 +1,7 @@
 import prisma from "@/prisma/index";
-import {
-  contains,
-  paginate,
-  paginateAggregate,
-  paginatedQuery,
-} from "@/prisma/util";
+import { paginatedQuery } from "@/prisma/util";
 import { PaginationConfig } from "@/types/pagination";
+
 export const getAllPlayers = async () => {
   return prisma.players.findMany();
 };
@@ -33,6 +29,9 @@ export const getPlayersByIds = async (ids: string[]) => {
         in: ids,
       },
     },
+    orderBy: {
+      points: "desc",
+    },
   });
 };
 
@@ -58,6 +57,9 @@ export const findPlayers = async (query: any) => {
   return prisma.players.findMany({
     where: {
       ...query,
+    },
+    orderBy: {
+      points: "desc",
     },
   });
 };
@@ -104,4 +106,15 @@ export const getAllPlayerIds = async (): Promise<string[]> => {
     .then((players) => {
       return players.map((player) => player.id);
     });
+};
+
+export const updateScore = async (playerId: string, score: number) => {
+  await prisma.players.update({
+    where: {
+      id: playerId,
+    },
+    data: {
+      points: score,
+    },
+  });
 };

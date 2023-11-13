@@ -14,4 +14,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   });
 };
 
-export default withMethods(handler, "PUT");
+export default withMethods(handler, "PUT", "POST");

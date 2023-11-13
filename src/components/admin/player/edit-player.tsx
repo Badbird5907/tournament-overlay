@@ -63,6 +63,13 @@ const EditPlayer = (props: { player: Players }) => {
             defaultValue={props.player.losses}
           />
         </div>
+        <TextField
+          type="number"
+          id="edit-points"
+          name="points"
+          label={"Points"}
+          defaultValue={props.player.points}
+        />
         <CustomButton variant={"outlined"} type={"submit"}>
           Submit
         </CustomButton>

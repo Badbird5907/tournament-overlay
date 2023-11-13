@@ -115,8 +115,9 @@ const MatchesPage = (
             >
               <SelectMap />
               <SelectPlayer
+                multiple
                 onChange={(val) => {
-                  setSelectedPlayers(val);
+                  setSelectedPlayers(val as string[]);
                 }}
               />
               <TextField

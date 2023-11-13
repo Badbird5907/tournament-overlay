@@ -4,6 +4,8 @@ import { Players } from ".prisma/client";
 import axios from "axios";
 import {
   DataGrid,
+  GridColDef,
+  GridRenderCellParams,
   GridRowSelectionModel,
   GridToolbarContainer,
 } from "@mui/x-data-grid";
@@ -17,6 +19,60 @@ import CustomButton from "@/components/button";
 import { FaEdit } from "react-icons/fa";
 import Link from "next/link";
 import { DebounceInput } from "react-debounce-input";
+
+export const playerCols = [
+  {
+    field: "id",
+    headerName: "ID",
+    width: 230,
+    sortable: false,
+  },
+  {
+    field: "name",
+    headerName: "Name",
+    width: 200,
+    sortable: false,
+  },
+  {
+    field: "description",
+    headerName: "Description",
+    width: 300,
+    sortable: false,
+  },
+  {
+    field: "email",
+    headerName: "Email",
+    width: 220,
+    sortable: false,
+  },
+  {
+    field: "createdAt",
+    headerName: "Created At",
+    width: 200,
+    sortable: false,
+    renderCell: (params: GridRenderCellParams) => {
+      return new Date(params.value as string).toLocaleString();
+    },
+  },
+  {
+    field: "points",
+    headerName: "Points",
+    width: 50,
+    sortable: false,
+  },
+  {
+    field: "wins",
+    headerName: "Wins",
+    width: 50,
+    sortable: false,
+  },
+  {
+    field: "losses",
+    headerName: "Losses",
+    width: 50,
+    sortable: false,
+  },
+];
 
 const PlayersPage = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -195,51 +251,7 @@ const PlayersPage = (
         <div className={"text-white w-full h-[75vh]"}>
           <DataGrid
             columns={[
-              {
-                field: "id",
-                headerName: "ID",
-                width: 230,
-                sortable: false,
-              },
-              {
-                field: "name",
-                headerName: "Name",
-                width: 200,
-                sortable: false,
-              },
-              {
-                field: "description",
-                headerName: "Description",
-                width: 300,
-                sortable: false,
-              },
-              {
-                field: "email",
-                headerName: "Email",
-                width: 220,
-                sortable: false,
-              },
-              {
-                field: "createdAt",
-                headerName: "Created At",
-                width: 200,
-                sortable: false,
-                renderCell: (params) => {
-                  return new Date(params.value as string).toLocaleString();
-                },
-              },
-              {
-                field: "wins",
-                headerName: "Wins",
-                width: 50,
-                sortable: false,
-              },
-              {
-                field: "losses",
-                headerName: "Losses",
-                width: 50,
-                sortable: false,
-              },
+              ...playerCols,
               {
                 field: "_dummy",
                 headerName: "Actions",

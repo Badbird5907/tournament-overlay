@@ -6,13 +6,19 @@ import { getTopPlayers } from "@/prisma/players";
 import { TranslucentCard } from "@/components/translucent-card";
 import useSWR from "swr";
 import { Table } from "@mui/material";
+import axios from "axios";
 
 const LeaderboardPage = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) => {
+  const [lastUpdated, setLastUpdated] = React.useState<number>(0);
   const { data, error, isLoading } = useSWR(props.endpoint, {
-    refreshInterval: 1000,
+    refreshInterval: 25,
     fallbackData: props.players,
+    fetcher: (url) => {
+      setLastUpdated(Date.now());
+      return axios.get(url).then((res) => res.data);
+    },
   });
 
   return (

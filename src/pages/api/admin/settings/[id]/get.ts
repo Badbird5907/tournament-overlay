@@ -7,5 +7,8 @@ export default async function handler(
 ) {
   const { id } = req.query;
   const data = await getSetting(id as string);
-  res.status(200).json(data);
+  res.status(200).json({
+    success: true,
+    data,
+  });
 }

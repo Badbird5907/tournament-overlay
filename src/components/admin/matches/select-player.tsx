@@ -8,21 +8,33 @@ import {
 import { Players } from ".prisma/client";
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 import useSWR from "swr";
+import { AutocompleteValue } from "@mui/base/useAutocomplete/useAutocomplete";
 
 const icon = <MdCheckBoxOutlineBlank />;
 const checkedIcon = <MdCheckBox />;
-const SelectPlayer = (props: { onChange: (value: string[]) => void }) => {
+const SelectPlayer = ({
+  label = "Select Players",
+  ...props
+}: {
+  onChange: (value: any) => void;
+  defaultValue?: AutocompleteValue<any, any, any, any> | undefined;
+  multiple?: boolean;
+  label?: string;
+  loading?: boolean;
+}) => {
   const { data, isLoading } = useSWR<{
     data: Players[];
   }>("/api/admin/players/get?limit=1000");
   return (
     <Autocomplete
-      multiple
+      multiple={props.multiple}
       id="select-players"
       options={data?.data || []}
       disableCloseOnSelect
-      loading={isLoading}
+      loading={isLoading || props.loading}
+      defaultValue={props.defaultValue}
       getOptionLabel={(option) => option.name}
+      isOptionEqualToValue={(option, value) => option.id === value.id}
       renderOption={(props, option, { selected }) => (
         <li {...props}>
           <Checkbox
@@ -35,10 +47,11 @@ const SelectPlayer = (props: { onChange: (value: string[]) => void }) => {
         </li>
       )}
       renderInput={(params) => (
-        <TextField {...params} label="Select Players" placeholder="Players" />
+        <TextField {...params} label={label} placeholder="Player(s)" />
       )}
       onChange={(e, value) => {
-        props.onChange(value.map((v) => v.id));
+        if (props.multiple) props.onChange(value.map((v: Players) => v.id));
+        else props.onChange(value);
       }}
     />
   );

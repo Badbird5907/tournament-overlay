@@ -7,6 +7,9 @@ import { DataGrid } from "@mui/x-data-grid";
 import { DebounceInput } from "react-debounce-input";
 import Link from "next/link";
 import { FaEdit } from "react-icons/fa";
+import { setSettingClient, useCurrentMatch } from "@/util/client";
+import CustomButton from "@/components/button";
+import { useSWRConfig } from "swr";
 const Matches = (props: {
   initialQuery: any;
   embedded?: boolean;
@@ -16,6 +19,8 @@ const Matches = (props: {
   const [matches, setMatches] = React.useState<
     PaginatedResponse<Matches> | undefined
   >(undefined);
+  const currentMatch = useCurrentMatch();
+  const swrConfig = useSWRConfig();
 
   React.useEffect(() => {
     const buildQueryUrl = () => {
@@ -98,18 +103,38 @@ const Matches = (props: {
             {
               field: "_dummy",
               headerName: "Actions",
-              width: 200,
+              width: 250,
               sortable: false,
               renderCell: (params) => {
                 return (
-                  <Link
-                    href={`/admin/matches/${params.row.id}`}
-                    className={"w-full h-full"}
-                  >
-                    <Button variant={"text"} className={"w-full h-full"}>
-                      <FaEdit />
-                    </Button>
-                  </Link>
+                  <div className={"flex gap-4 w-full h-full"}>
+                    <Link
+                      href={`/admin/matches/${params.row.id}`}
+                      className={"w-full h-full"}
+                    >
+                      <Button variant={"outlined"} className={"w-full h-full"}>
+                        <FaEdit />
+                      </Button>
+                    </Link>
+                    <CustomButton
+                      variant={"outlined"}
+                      className={"w-full h-full"}
+                      disabled={currentMatch?.value === params.row.id}
+                      onClickLoading={(e) => {
+                        e.stopPropagation();
+                        return setSettingClient(
+                          "currentMatch",
+                          params.row.id
+                        ).finally(() => {
+                          swrConfig.mutate(currentMatch.url);
+                        });
+                      }}
+                    >
+                      {currentMatch?.value === params.row.id
+                        ? "Current"
+                        : "Set Active"}
+                    </CustomButton>
+                  </div>
                 );
               },
             },

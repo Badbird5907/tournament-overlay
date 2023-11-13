@@ -1,3 +1,6 @@
+import useSWR from "swr";
+import axios from "axios";
+
 export const getInputValues = (prefix: string) => {
   // get elements whose id matches the regex
   const values: any = {};
@@ -19,4 +22,20 @@ export const getInputValues = (prefix: string) => {
     }
   });
   return values;
+};
+
+export const useCurrentMatch = () => {
+  const swr = useSWR("/api/admin/settings/currentMatch/get");
+  return {
+    url: "/api/admin/settings/currentMatch/get",
+    value: swr.data?.data,
+    ...swr,
+  };
+};
+
+export const setSettingClient = async (key: string, value: any) => {
+  const res = await axios.post(`/api/admin/settings/${key}/set`, {
+    value,
+  });
+  return res.data;
 };
