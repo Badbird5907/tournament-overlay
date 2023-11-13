@@ -145,20 +145,20 @@ const PlayersPage = (
                   setSubmitLoading(false);
                 });
             }}
-            className={"gap-4"}
+            className={"flex flex-col gap-4"}
           >
             <TextField
               id={"name"}
               label={"Name"}
               variant={"outlined"}
-              className={"w-full mb-4"}
+              className={"w-full"}
               required
             />
             <TextField
               id={"email"}
               label={"Email"}
               variant={"outlined"}
-              className={"w-full mb-4"}
+              className={"w-full"}
               required
               type={"email"}
             />
@@ -166,7 +166,7 @@ const PlayersPage = (
               id={"description"}
               label={"Description"}
               variant={"outlined"}
-              className={"w-full mb-4"}
+              className={"w-full"}
             />
             <CustomButton
               variant={"outlined"}

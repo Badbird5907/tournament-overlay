@@ -1,0 +1,104 @@
+import React from 'react';
+import {Autocomplete, Checkbox, CircularProgress, TextField} from "@mui/material";
+import {Players} from ".prisma/client";
+import axios from "axios";
+import {MdCheckBox, MdCheckBoxOutlineBlank} from "react-icons/md";
+import {DebounceInput} from "react-debounce-input";
+
+
+const icon = <MdCheckBoxOutlineBlank />;
+const checkedIcon = <MdCheckBox />;
+const SelectPlayer = () => {
+  const [open, setOpen] = React.useState(false);
+  const [options, setOptions] = React.useState<readonly Players[]>([]);
+  const [search, setSearch] = React.useState<string>("");
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const [selected, setSelected] = React.useState<Players[]>([]);
+  // const loading = open && options.length === 0;
+  React.useEffect(() => {
+    let active = true;
+
+    /*
+    if (!loading) {
+      return undefined;
+    }
+     */
+    const url = `/api/admin/players/get?limit=10&search=${search}`;
+    console.log({url})
+    setLoading(true);
+    axios.get(url) // TODO: filtering (https://mui.com/material-ui/react-autocomplete/#search-as-you-type)
+      .then((res) => {
+      if (active) {
+        setOptions(res.data.data);
+      }
+    }).finally(() => {
+      setLoading(false);
+    });
+
+    return () => {
+      active = false;
+    };
+  }, [search]);
+
+  React.useEffect(() => {
+    if (!open) {
+      setOptions([]);
+    }
+  }, [open]);
+  return (
+    <div>
+      <Autocomplete
+        id="selectPlayers"
+        open={open}
+        multiple
+        onOpen={() => {
+          setOpen(true);
+        }}
+        onClose={() => {
+          setOpen(false);
+        }}
+        isOptionEqualToValue={(option, value) => option.id === value.id}
+        getOptionLabel={(option) => option.name}
+        options={options}
+        loading={loading}
+        renderOption={(props, option, { selected }) => (
+          <li {...props}>
+            <Checkbox
+              icon={icon}
+              checkedIcon={checkedIcon}
+              style={{ marginRight: 8 }}
+              checked={selected}
+            />
+            {option.name} ({option.id})
+          </li>
+        )}
+        renderInput={(params) => (
+          <DebounceInput
+            debounceTimeout={300}
+            element={TextField}
+            {...params}
+            label="Players"
+            onChange={(e) => {
+              console.log("Change: ", e.target.value);
+              setSearch(e.target.value);
+            }}
+            InputProps={{
+              ...params.InputProps,
+              endAdornment: (
+                <React.Fragment>
+                  {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                  {params.InputProps.endAdornment}
+                </React.Fragment>
+              ),
+            }}
+          />
+        )}
+        onChange={(e, value) => {
+          setSelected(value);
+        }}
+       />
+    </div>
+  );
+};
+
+export default SelectPlayer;

@@ -70,7 +70,8 @@ export const paginateAggregate = (pagination: PaginationConfig): any => {
 export const paginatedQuery = async (
   collection: typeof prisma.players | typeof prisma.matches,
   query: any,
-  pagination: PaginationConfig
+  pagination: PaginationConfig,
+  extraSearch?: any
 ) => {
   const aggregate = {
     pipeline: [
@@ -80,6 +81,7 @@ export const paginatedQuery = async (
             {
               $match: query,
             },
+            ...(extraSearch ? [extraSearch] : []),
             ...paginateAggregate(pagination),
           ],
           size: [

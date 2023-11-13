@@ -8,7 +8,6 @@ export default async function handler(
 ) {
   const id = req.query.id as string;
   if (!id) {
-    console.log("Missing id");
     res.status(400).json({
       message: "Missing id",
     });

@@ -37,7 +37,6 @@ export const getPlayersByIds = async (ids: string[]) => {
 };
 
 export const getPlayerById = async (id: string) => {
-  console.log("getPlayerById", id);
   return prisma.players.findUnique({
     where: {
       id,
@@ -92,4 +91,17 @@ export const addPlayer = async (
       description,
     },
   });
+};
+
+export const getAllPlayerIds = async (): Promise<string[]> => {
+  // return a string array of all player ids: ex: ["1", "2", "3"]
+  return prisma.players
+    .findMany({
+      select: {
+        id: true,
+      },
+    })
+    .then((players) => {
+      return players.map((player) => player.id);
+    });
 };

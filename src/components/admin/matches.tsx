@@ -2,11 +2,16 @@ import React from "react";
 import { PaginatedResponse } from "@/types/pagination";
 import { Matches } from ".prisma/client";
 import axios from "axios";
-import AdminWrapper from "@/components/admin/wrapper";
-import { TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { DebounceInput } from "react-debounce-input";
-const Matches = (props: { initialQuery: any; embedded?: boolean }) => {
+import Link from "next/link";
+import { FaEdit } from "react-icons/fa";
+const Matches = (props: {
+  initialQuery: any;
+  embedded?: boolean;
+  toolbar?: React.JSXElementConstructor<any> | null | undefined;
+}) => {
   const [query, setQuery] = React.useState<any>(props.initialQuery);
   const [matches, setMatches] = React.useState<
     PaginatedResponse<Matches> | undefined
@@ -30,7 +35,7 @@ const Matches = (props: { initialQuery: any; embedded?: boolean }) => {
     });
   }, [query]);
   return (
-    <div>
+    <div className={"w-full"}>
       <div className={"w-full flex flex-row justify-center py-4"}>
         <DebounceInput
           debounceTimeout={300}
@@ -49,6 +54,9 @@ const Matches = (props: { initialQuery: any; embedded?: boolean }) => {
         }`}
       >
         <DataGrid
+          slots={{
+            toolbar: props.toolbar,
+          }}
           columns={[
             {
               field: "id",
@@ -92,6 +100,18 @@ const Matches = (props: { initialQuery: any; embedded?: boolean }) => {
               headerName: "Actions",
               width: 200,
               sortable: false,
+              renderCell: (params) => {
+                return (
+                  <Link
+                    href={`/admin/matches/${params.row.id}`}
+                    className={"w-full h-full"}
+                  >
+                    <Button variant={"text"} className={"w-full h-full"}>
+                      <FaEdit />
+                    </Button>
+                  </Link>
+                );
+              },
             },
           ]}
           rows={matches?.data || []}

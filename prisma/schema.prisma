@@ -7,27 +7,32 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+type MatchPlayer {
+  id           String @db.ObjectId
+  pointsGained Int    @default(0)
+}
+
 model Matches {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  end         DateTime @db.Date
-  map         String
-  description String
-  players     String[] @db.ObjectId
-  start       DateTime @db.Date
-  winner      String   @db.ObjectId
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  end         DateTime?     @db.Date
+  map         String        @default("dummy")
+  description String        @default("")
+  players     String[]      @default([]) @db.ObjectId
+  endResult   MatchPlayer[]
+  start       DateTime      @default(now()) @db.Date
+  winner      String?       @db.ObjectId
 }
 
 model Players {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt    DateTime @default(now())
-  description  String   @default("")
-  losses       Int      @default(0)
-  matchHistory String[]
-  name         String
-  updatedAt    DateTime @updatedAt
-  wins         Int      @default(0)
-  email        String
-  points       Int      @default(0)
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt   DateTime @default(now())
+  description String   @default("")
+  losses      Int      @default(0)
+  name        String
+  updatedAt   DateTime @updatedAt
+  wins        Int      @default(0)
+  email       String
+  points      Int      @default(0)
 }
 
 model Settings {
