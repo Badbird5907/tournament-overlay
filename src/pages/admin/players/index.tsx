@@ -179,7 +179,8 @@ const PlayersPage = (
               const description = (e.target as any).description.value;
               axios
                 .post("/api/admin/players/add", {
-                  name,
+                  // replace tab with space
+                  name: name.replace(/\t/g, " "),
                   email,
                   description,
                 })
