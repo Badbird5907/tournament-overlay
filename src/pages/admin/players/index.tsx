@@ -32,18 +32,21 @@ export const playerCols = [
     headerName: "Name",
     width: 200,
     sortable: false,
+    editable: true,
   },
   {
     field: "description",
     headerName: "Description",
     width: 300,
     sortable: false,
+    editable: true,
   },
   {
     field: "email",
     headerName: "Email",
     width: 220,
     sortable: false,
+    editable: true,
   },
   {
     field: "createdAt",
@@ -57,20 +60,26 @@ export const playerCols = [
   {
     field: "points",
     headerName: "Points",
-    width: 50,
+    type: "number",
+    width: 100,
     sortable: false,
+    editable: true,
   },
   {
     field: "wins",
     headerName: "Wins",
+    type: "number",
     width: 50,
     sortable: false,
+    editable: true,
   },
   {
     field: "losses",
     headerName: "Losses",
+    type: "number",
     width: 50,
     sortable: false,
+    editable: true,
   },
 ];
 
@@ -296,6 +305,10 @@ const PlayersPage = (
             pageSizeOptions={[5, 10, 15, 20, 25]}
             slots={{
               toolbar: Toolbar,
+            }}
+            processRowUpdate={async (updatedRow, originalRow) => {
+              await axios.put("/api/admin/players/update", updatedRow);
+              return updatedRow;
             }}
           />
         </div>
