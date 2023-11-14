@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { findPlayers, findPlayersPaginated } from "@/prisma/players";
+import { findPlayersPaginated } from "@/prisma/players";
 import { contains, rawAggregateContains, toObjectId } from "@/prisma/util";
 import {
   ensureObjectId,

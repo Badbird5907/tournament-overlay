@@ -122,12 +122,26 @@ const ModifyMatchPage = (
               </Card>
               <Card>
                 <div className={"flex flex-col gap-4"}>
-                  <CustomButton variant={"outlined"} className={"w-full"}>
-                    End Match
+                  <CustomButton
+                    variant={"outlined"}
+                    className={"w-full"}
+                    disabled={!!props.match.end}
+                    onClickLoading={() => {
+                      return axios
+                        .post("/api/admin/matches/end", {
+                          id: props.match.id,
+                        })
+                        .finally(() => {
+                          props.match.end = new Date();
+                        });
+                    }}
+                  >
+                    {!props.match.end ? "End Match" : "Match Ended"}
                   </CustomButton>
                   <SelectWinner
                     defaultValue={props?.winner}
                     matchId={props.match.id}
+                    players={props.playerObjects}
                   />
                 </div>
               </Card>

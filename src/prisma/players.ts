@@ -118,3 +118,23 @@ export const updateScore = async (playerId: string, score: number) => {
     },
   });
 };
+
+export const giveLossExcept = async (
+  players: string[],
+  except: string | null
+) => {
+  // give everyone in players a loss except for the player with id except
+  const ids = players.filter((p) => p !== except);
+  return prisma.players.updateMany({
+    where: {
+      id: {
+        in: ids,
+      },
+    },
+    data: {
+      losses: {
+        increment: 1,
+      },
+    },
+  });
+};

@@ -6,15 +6,18 @@ import { Players } from ".prisma/client";
 const SelectWinner = ({
   matchId,
   defaultValue,
+  players,
 }: {
   matchId: string;
   defaultValue?: Players | undefined | null;
+  players?: Players[] | undefined;
 }) => {
   const [loading, setLoading] = React.useState<boolean>(false);
   return (
     <div>
       <SelectPlayer
         defaultValue={defaultValue}
+        players={players}
         onChange={(val) => {
           console.log(val);
           setLoading(true);

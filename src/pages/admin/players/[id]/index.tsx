@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 import CreditWin from "@/components/admin/player/credit-win";
 import Card from "@/components/card";
 import EditPlayer from "@/components/admin/player/edit-player";
+import CreditPoints from "@/components/admin/player/credit-points";
 
 const EditPlayerPage = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -53,6 +54,7 @@ const EditPlayerPage = (
                     Delete
                   </CustomButton>
                   <CreditWin playerId={props.player.id} />
+                  <CreditPoints playerId={props.player.id} />
                 </div>
               </Card>
             </div>

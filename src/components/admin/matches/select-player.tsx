@@ -21,6 +21,7 @@ const SelectPlayer = ({
   multiple?: boolean;
   label?: string;
   loading?: boolean;
+  players?: Players[] | undefined;
 }) => {
   const { data, isLoading } = useSWR<{
     data: Players[];
@@ -29,7 +30,7 @@ const SelectPlayer = ({
     <Autocomplete
       multiple={props.multiple}
       id="select-players"
-      options={data?.data || []}
+      options={props.players || data?.data || []}
       disableCloseOnSelect
       loading={isLoading || props.loading}
       defaultValue={props.defaultValue}
