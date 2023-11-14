@@ -3,8 +3,12 @@ import CustomButton from "@/components/button";
 import axios from "axios";
 import { Input, TextField } from "@mui/material";
 import Card from "@/components/card";
+import {GetServerSidePropsContext, InferGetServerSidePropsType} from "next";
+import {verifyToken} from "@/util/auth-server";
 
-export default function Home() {
+export default function Home(
+  props: InferGetServerSidePropsType<typeof getServerSideProps>
+) {
   const [password, setPassword] = useState<string>("");
   return (
     <div
@@ -45,4 +49,22 @@ export default function Home() {
       </Card>
     </div>
   );
+}
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const { key } = context.query;
+  if (key && verifyToken(key as string)) {
+    context.res.setHeader(
+      "Set-Cookie",
+      `tAdminToken=${key}; path=/; HttpOnly; SameSite=Strict`
+    );
+    return {
+      // redirect to /admin
+      redirect: {
+        destination: "/admin",
+      },
+    };
+  }
+  return {
+    props: {},
+  };
 }
