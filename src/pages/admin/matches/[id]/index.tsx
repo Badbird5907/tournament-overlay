@@ -5,7 +5,11 @@ import AdminWrapper from "@/components/admin/wrapper";
 import { Button, Grid, TextField } from "@mui/material";
 import Card from "@/components/card";
 import { getMatch } from "@/prisma/matches";
-import {getInputValues, setSettingClient, useCurrentMatch} from "@/util/client";
+import {
+  getInputValues,
+  setSettingClient,
+  useCurrentMatch,
+} from "@/util/client";
 import axios from "axios";
 import SelectPlayer from "@/components/admin/matches/select-player";
 import { getPlayer, getPlayersByIds } from "@/prisma/players";
@@ -15,7 +19,7 @@ import Link from "next/link";
 import { FaEdit } from "react-icons/fa";
 import UpdateScore from "@/components/admin/matches/update-score";
 import SelectWinner from "@/components/admin/matches/select-winner";
-import {useSWRConfig} from "swr";
+import { useSWRConfig } from "swr";
 
 const ModifyMatchPage = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
