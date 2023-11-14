@@ -49,7 +49,6 @@ const LeaderboardPage = (
               <th className={"text-2xl font-bold"}>Name</th>
               <th className={"text-2xl font-bold"}>Points</th>
               <th className={"text-2xl font-bold"}>Wins</th>
-              <th className={"text-2xl font-bold"}>Losses</th>
             </tr>
           </thead>
           <tbody>
@@ -62,7 +61,6 @@ const LeaderboardPage = (
                     <td className={"text-2xl"}>{player.name}</td>
                     <td className={"text-2xl"}>{player.points}</td>
                     <td className={"text-2xl"}>{player.wins}</td>
-                    <td className={"text-2xl"}>{player.losses}</td>
                   </tr>
                 );
               })}
