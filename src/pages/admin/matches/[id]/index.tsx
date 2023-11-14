@@ -5,21 +5,23 @@ import AdminWrapper from "@/components/admin/wrapper";
 import { Button, Grid, TextField } from "@mui/material";
 import Card from "@/components/card";
 import { getMatch } from "@/prisma/matches";
-import { getInputValues } from "@/util/client";
+import {getInputValues, setSettingClient, useCurrentMatch} from "@/util/client";
 import axios from "axios";
 import SelectPlayer from "@/components/admin/matches/select-player";
 import { getPlayer, getPlayersByIds } from "@/prisma/players";
 import CustomButton from "@/components/button";
 import { DataGrid, GridRenderCellParams } from "@mui/x-data-grid";
-import { playerCols } from "@/pages/admin/players";
 import Link from "next/link";
 import { FaEdit } from "react-icons/fa";
 import UpdateScore from "@/components/admin/matches/update-score";
 import SelectWinner from "@/components/admin/matches/select-winner";
+import {useSWRConfig} from "swr";
 
 const ModifyMatchPage = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) => {
+  const currentMatch = useCurrentMatch();
+  const swrConfig = useSWRConfig();
   const [players, setPlayers] = React.useState<string[]>(props.match.players);
   const [loading, setLoading] = React.useState<boolean>(false);
   const cols = useMemo(() => {
@@ -122,6 +124,24 @@ const ModifyMatchPage = (
               </Card>
               <Card>
                 <div className={"flex flex-col gap-4"}>
+                  <CustomButton
+                    variant={"outlined"}
+                    className={"w-full h-full"}
+                    disabled={currentMatch?.value === props.match.id}
+                    onClickLoading={(e) => {
+                      e.stopPropagation();
+                      return setSettingClient(
+                        "currentMatch",
+                        props.match.id
+                      ).finally(() => {
+                        swrConfig.mutate(currentMatch.url);
+                      });
+                    }}
+                  >
+                    {currentMatch?.value === props.match.id
+                      ? "Current"
+                      : "Set Active"}
+                  </CustomButton>
                   <CustomButton
                     variant={"outlined"}
                     className={"w-full"}

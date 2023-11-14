@@ -8,7 +8,7 @@ export const getAllPlayers = async () => {
 export const getTopPlayers = async (limit: number) => {
   return prisma.players.findMany({
     orderBy: {
-      wins: "desc",
+      points: "desc",
     },
     take: limit,
   });

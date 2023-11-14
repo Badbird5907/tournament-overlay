@@ -43,10 +43,11 @@ const LeaderboardPage = (
           {props.endpoint} ({props.scope})
         </h1>
         {/* for some odd reason the normal <table> element breaks the background transparency */}
-        <Table>
+        <Table className={"w-full"}>
           <thead>
             <tr>
               <th className={"text-2xl font-bold"}>Name</th>
+              <th className={"text-2xl font-bold"}>Points</th>
               <th className={"text-2xl font-bold"}>Wins</th>
               <th className={"text-2xl font-bold"}>Losses</th>
             </tr>
@@ -57,8 +58,9 @@ const LeaderboardPage = (
               data &&
               (data as Players[]).map((player, i) => {
                 return (
-                  <tr key={i}>
+                  <tr key={i} className={"w-full"}>
                     <td className={"text-2xl"}>{player.name}</td>
+                    <td className={"text-2xl"}>{player.points}</td>
                     <td className={"text-2xl"}>{player.wins}</td>
                     <td className={"text-2xl"}>{player.losses}</td>
                   </tr>
