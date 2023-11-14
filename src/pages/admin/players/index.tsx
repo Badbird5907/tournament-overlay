@@ -291,7 +291,7 @@ const PlayersPage = (
             pagination
             paginationModel={{
               page: query.page - 1,
-              pageSize: query.limit || 8,
+              pageSize: query.limit,
             }}
             onPaginationModelChange={(change) => {
               setQuery({
@@ -302,7 +302,6 @@ const PlayersPage = (
             }}
             paginationMode={"server"}
             loading={!players}
-            pageSizeOptions={[5, 10, 15, 20, 25]}
             slots={{
               toolbar: Toolbar,
             }}
@@ -323,7 +322,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     props: {
       initialQuery: {
         page: context.query.page || 1,
-        limit: context.query.limit || 8,
+        limit: context.query.limit,
         search: context.query.search || "",
       },
     },
