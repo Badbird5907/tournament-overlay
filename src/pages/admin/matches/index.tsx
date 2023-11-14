@@ -150,7 +150,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     props: {
       initialQuery: {
         page: context.query.page || 1,
-        limit: context.query.limit || 8,
+        limit: context.query.limit,
         search: context.query.search || "",
       },
     },
