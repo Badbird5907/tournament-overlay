@@ -3,8 +3,8 @@ import CustomButton from "@/components/button";
 import axios from "axios";
 import { Input, TextField } from "@mui/material";
 import Card from "@/components/card";
-import {GetServerSidePropsContext, InferGetServerSidePropsType} from "next";
-import {verifyToken} from "@/util/auth-server";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import { verifyToken } from "@/util/auth-server";
 
 export default function Home(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
