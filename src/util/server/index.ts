@@ -15,6 +15,7 @@ function requireMethod(
   }
   return true;
 }
+
 const withMethods = (
   handler: NextApiHandler,
   ...method: string[]

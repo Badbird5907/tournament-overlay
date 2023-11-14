@@ -10,6 +10,7 @@ import { FaEdit } from "react-icons/fa";
 import { setSettingClient, useCurrentMatch } from "@/util/client";
 import CustomButton from "@/components/button";
 import { useSWRConfig } from "swr";
+
 const Matches = (props: {
   initialQuery: any;
   embedded?: boolean;

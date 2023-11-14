@@ -194,6 +194,7 @@ const ModifyMatchPage = (
 };
 
 export default ModifyMatchPage;
+
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { id } = context.query;
   const match = await getMatch(id as string);

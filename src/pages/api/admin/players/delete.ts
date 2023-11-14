@@ -17,4 +17,5 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     message: "Successfully deleted players",
   });
 }
+
 export default withMethods(handler, "DELETE", "POST");

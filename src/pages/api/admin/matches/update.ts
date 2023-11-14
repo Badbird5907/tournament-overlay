@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { withMethods } from "@/util/server";
-import { updatePlayer } from "@/prisma/players";
 import { updateMatch } from "@/prisma/matches";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

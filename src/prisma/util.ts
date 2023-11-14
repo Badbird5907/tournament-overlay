@@ -1,7 +1,7 @@
 import { Players, Prisma } from ".prisma/client";
 import { PaginatedResponse, PaginationConfig } from "@/types/pagination";
-import StringFilter = Prisma.StringFilter;
 import { isObjectId } from "@/util/server";
+import StringFilter = Prisma.StringFilter;
 
 export const contains = (
   str: string,
@@ -12,10 +12,12 @@ export const contains = (
     mode: insensitive ? "insensitive" : "default",
   };
 };
+
 export function escapeRegExp(string: string) {
   if (!string) return string;
   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
 }
+
 export const rawAggregateContains = (
   str: string,
   insensitive: boolean = true

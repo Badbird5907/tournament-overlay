@@ -4,14 +4,12 @@ import { Players } from ".prisma/client";
 import axios from "axios";
 import {
   DataGrid,
-  GridColDef,
   GridRenderCellParams,
   GridRowSelectionModel,
   GridToolbarContainer,
 } from "@mui/x-data-grid";
-import { Card, Fab, Modal, TextField } from "@mui/material";
+import { Button, Card, Modal, TextField } from "@mui/material";
 import { PaginatedResponse } from "@/types/pagination";
-import { Button } from "@mui/material";
 import { MdAdd, MdDelete } from "react-icons/md";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
@@ -317,6 +315,7 @@ const PlayersPage = (
 };
 
 export default PlayersPage;
+
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   return {
     props: {

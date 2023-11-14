@@ -70,6 +70,7 @@ const MatchViewPage = ({
 };
 
 export default MatchViewPage;
+
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   return {
     props: {

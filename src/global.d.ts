@@ -4,6 +4,7 @@ declare global {
   interface Window {
     captchaToken: string;
   }
+
   var prisma: PrismaClient;
 }
 export {};

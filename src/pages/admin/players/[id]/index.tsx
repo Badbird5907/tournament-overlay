@@ -1,9 +1,9 @@
 import React from "react";
 
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
-import { getPlayerById, getPlayersByIds } from "@/prisma/players";
+import { getPlayerById } from "@/prisma/players";
 import AdminWrapper from "@/components/admin/wrapper";
-import { Grid, TextField } from "@mui/material";
+import { Grid } from "@mui/material";
 import CustomButton from "@/components/button";
 import axios from "axios";
 import Matches from "@/components/admin/matches";
@@ -80,6 +80,7 @@ const EditPlayerPage = (
 };
 
 export default EditPlayerPage;
+
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { id } = context.query;
   if (typeof id !== "string") {

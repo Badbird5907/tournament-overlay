@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Autocomplete,
-  Checkbox,
-  CircularProgress,
-  TextField,
-} from "@mui/material";
+import { Autocomplete, Checkbox, TextField } from "@mui/material";
 import { Players } from ".prisma/client";
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 import useSWR from "swr";

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CustomButton from "@/components/button";
 import axios from "axios";
-import { Input, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import Card from "@/components/card";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { verifyToken } from "@/util/auth-server";
@@ -50,6 +50,7 @@ export default function Home(
     </div>
   );
 }
+
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { key } = context.query;
   if (key && verifyToken(key as string)) {

@@ -72,6 +72,7 @@ const LeaderboardPage = (
 };
 
 export default LeaderboardPage;
+
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const translucent = context.query.translucent === "true";
   const max = context.query.max ? Number(context.query.max) : 10;

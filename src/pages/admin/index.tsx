@@ -16,6 +16,7 @@ const AdminPage = (
 };
 
 export default AdminPage;
+
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   return {
     props: {},

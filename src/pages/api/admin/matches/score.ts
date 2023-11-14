@@ -43,4 +43,5 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   await updateScore(playerId, playerScore);
   res.status(200).json({ message: "Score updated" });
 }
+
 export default withMethods(handler, "POST", "PUT");

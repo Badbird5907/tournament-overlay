@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getSetting } from "@/prisma/settings";
 import { getMatchStatus } from "@/pages/api/match/[id]/status";
 
 export default async function handler(

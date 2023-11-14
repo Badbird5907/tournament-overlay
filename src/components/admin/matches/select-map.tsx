@@ -3,7 +3,7 @@ import { Autocomplete, TextField } from "@mui/material";
 import useSWR from "swr";
 
 const SelectMap = () => {
-  const { data, isLoading } = useSWR<string[]>("/api/admin/maps/get");
+  const { data } = useSWR<string[]>("/api/admin/maps/get");
   console.log(data);
   return (
     <Autocomplete

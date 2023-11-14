@@ -1,14 +1,4 @@
-import {
-  FaChartLine,
-  FaCheck,
-  FaCog,
-  FaEnvelope,
-  FaFlag,
-  FaHome,
-  FaReceipt,
-  FaShoppingCart,
-  FaUsers,
-} from "react-icons/fa";
+import { FaHome, FaUsers } from "react-icons/fa";
 import Link from "next/link";
 import { LuSwords } from "react-icons/lu";
 

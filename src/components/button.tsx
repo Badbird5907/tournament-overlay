@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { ButtonProps } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { FaX, FaCheck } from "react-icons/fa6";
+import { FaCheck, FaX } from "react-icons/fa6";
 
 const CustomButton = ({
   showStatusColor = true,

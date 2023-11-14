@@ -51,4 +51,5 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     ...players,
   });
 }
+
 export default withMethods(handler, "GET");

@@ -10,4 +10,5 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     success: true,
   });
 }
+
 export default withMethods(handler, "POST", "PUT");
