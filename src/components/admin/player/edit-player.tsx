@@ -47,12 +47,13 @@ const EditPlayer = (props: { player: Players }) => {
           label={"Description"}
           defaultValue={props.player.description}
         />
-        <div className={"flex flex-row gap-2"}>
+        <div className={"flex flex-row gap-2 w-full"}>
           <TextField
             type="number"
             id="edit-wins"
             name="wins"
             label={"Wins"}
+            className={"w-1/2"}
             defaultValue={props.player.wins}
           />
           <TextField
@@ -60,6 +61,7 @@ const EditPlayer = (props: { player: Players }) => {
             id="edit-losses"
             name="losses"
             label={"Losses"}
+            className={"w-1/2"}
             defaultValue={props.player.losses}
           />
         </div>
