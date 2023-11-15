@@ -152,6 +152,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         page: context.query.page || 1,
         limit: context.query.limit,
         search: context.query.search || "",
+        activeOnly: true,
       },
     },
   };

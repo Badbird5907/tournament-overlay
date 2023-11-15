@@ -29,7 +29,9 @@ const SelectPlayer = ({
       disableCloseOnSelect
       loading={isLoading || props.loading}
       defaultValue={props.defaultValue}
-      getOptionLabel={(option) => option.name}
+      getOptionLabel={(option) =>
+        `(${option.wins + option.losses}) ${option.name}`
+      }
       isOptionEqualToValue={(option, value) => option.id === value.id}
       renderOption={(props, option, { selected }) => (
         <li {...props}>
@@ -39,7 +41,7 @@ const SelectPlayer = ({
             style={{ marginRight: 8 }}
             checked={selected}
           />
-          {option.name}
+          ({option.wins + option.losses}) {option.name}
         </li>
       )}
       renderInput={(params) => (

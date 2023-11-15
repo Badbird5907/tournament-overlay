@@ -12,7 +12,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { id, search, player } = req.query;
+  const { id, search, player, activeOnly } = req.query;
   const query: any = {};
   if (id) {
     if (!ensureObjectId(id, res)) return;
