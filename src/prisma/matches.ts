@@ -1,7 +1,7 @@
-import {PaginationConfig} from "@/types/pagination";
-import {fixJson, paginatedQuery} from "@/prisma/util";
+import { PaginationConfig } from "@/types/pagination";
+import { fixJson, paginatedQuery } from "@/prisma/util";
 import prisma from "@/prisma";
-import {getPlayersByIds} from "@/prisma/players";
+import { getPlayersByIds } from "@/prisma/players";
 
 export const getAllMatches = async () => {
   return prisma.matches.findMany({

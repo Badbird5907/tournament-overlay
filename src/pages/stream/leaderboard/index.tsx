@@ -40,9 +40,14 @@ const LeaderboardPage = (
         <h1 className={"text-4xl font-bold text-center"}>
           {props.scope !== "all" ? "Match Players" : "Event Leaderboard"}
         </h1>
+        <h2 className={"text-2xl text-center text-gray-500"}>
+          Ordered By Average
+        </h2>
+        {/*
         <h1 className={"text-xl text-gray-500 text-center"}>
           {props.endpoint} ({props.scope})
         </h1>
+        */}
         {/* for some odd reason the normal <table> element breaks the background transparency */}
         <Table className={"w-full"}>
           <thead>
