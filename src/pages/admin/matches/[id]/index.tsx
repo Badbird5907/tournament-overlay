@@ -16,10 +16,11 @@ import { getPlayer, getPlayersByIds } from "@/prisma/players";
 import CustomButton from "@/components/button";
 import { DataGrid, GridRenderCellParams } from "@mui/x-data-grid";
 import Link from "next/link";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaPlus } from "react-icons/fa";
 import UpdateScore from "@/components/admin/matches/update-score";
 import SelectWinner from "@/components/admin/matches/select-winner";
 import { useSWRConfig } from "swr";
+import Swal from "sweetalert2";
 
 const ModifyMatchPage = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -45,7 +46,7 @@ const ModifyMatchPage = (
       {
         field: "_dummy",
         headerName: "Actions",
-        width: 200,
+        width: 300,
         sortable: false,
         renderCell: (params: GridRenderCellParams) => {
           return (
@@ -57,6 +58,40 @@ const ModifyMatchPage = (
                   id={params.row.id}
                 />
               </div>
+              <Button
+                variant={"outlined"}
+                className={"w-full h-full"}
+                onClick={() => {
+                  Swal.fire({
+                    title: "Add Score",
+                    input: "number",
+                    inputLabel: "Score",
+                    inputPlaceholder: "Score",
+                    showCancelButton: true,
+                  }).then((res) => {
+                    if (res.isConfirmed) {
+                      const currentScore =
+                        props.match.endResult &&
+                        props.match.endResult.find(
+                          (p) => p.id === params.row.id
+                        )?.pointsGained;
+                      const val = parseInt(res.value as string);
+                      const final = val + (currentScore || 0);
+                      axios
+                        .post("/api/admin/matches/score", {
+                          playerId: params.row.id,
+                          matchId: props.match.id,
+                          score: final,
+                        })
+                        .finally(() => {
+                          window.location.reload();
+                        });
+                    }
+                  });
+                }}
+              >
+                <FaPlus />
+              </Button>
               <Link
                 href={`/admin/players/${params.row.id}`}
                 className={"w-full h-full"}

@@ -55,15 +55,17 @@ const LeaderboardPage = (
             {!isLoading &&
               !error &&
               data &&
-              (data as Players[]).map((player, i) => {
-                return (
-                  <tr key={i} className={"w-full"}>
-                    <td className={"text-2xl"}>{player.name}</td>
-                    <td className={"text-2xl"}>{player.points}</td>
-                    <td className={"text-2xl"}>{player.wins}</td>
-                  </tr>
-                );
-              })}
+              (data as Players[])
+                .filter((p) => p.points)
+                .map((player, i) => {
+                  return (
+                    <tr key={i} className={"w-full"}>
+                      <td className={"text-2xl"}>{player.name}</td>
+                      <td className={"text-2xl"}>{player.points}</td>
+                      <td className={"text-2xl"}>{player.wins}</td>
+                    </tr>
+                  );
+                })}
           </tbody>
         </Table>
       </TranslucentCard>
