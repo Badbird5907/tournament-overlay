@@ -34,13 +34,7 @@ const ModifyMatchPage = (
       {
         field: "name",
         headerName: "Name",
-        width: 200,
-        sortable: false,
-      },
-      {
-        field: "email",
-        headerName: "Email",
-        width: 220,
+        width: 150,
         sortable: false,
       },
       {

@@ -58,11 +58,18 @@ const LeaderboardPage = (
               (data as Players[])
                 .filter((p) => p.points)
                 .map((player, i) => {
+                  const top6 = i < 6;
                   return (
-                    <tr key={i} className={"w-full"}>
-                      <td className={"text-2xl"}>{player.name}</td>
-                      <td className={"text-2xl"}>{player.points}</td>
-                      <td className={"text-2xl"}>{player.wins}</td>
+                    <tr key={i} className={`w-full`}>
+                      <td className={`text-2xl ${top6 && "text-yellow-500"}`}>
+                        {player.name}
+                      </td>
+                      <td className={`text-2xl ${top6 && "text-yellow-500"}`}>
+                        {player.points}
+                      </td>
+                      <td className={`text-2xl  ${top6 && "text-yellow-500"}`}>
+                        {player.wins}
+                      </td>
                     </tr>
                   );
                 })}
