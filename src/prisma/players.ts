@@ -13,7 +13,6 @@ export const getTopPlayers = async (limit: number) => {
     take: limit,
   });
 };
-
 export const getPlayer = async (id: string) => {
   return prisma.players.findUnique({
     where: {

@@ -7,6 +7,7 @@ import { TranslucentCard } from "@/components/translucent-card";
 import useSWR from "swr";
 import { Table } from "@mui/material";
 import axios from "axios";
+import { getAverageTopPlayers } from "@/prisma/matches";
 
 const LeaderboardPage = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -30,7 +31,7 @@ const LeaderboardPage = (
       <TranslucentCard
         enable={props.translucent}
         transparency={0.95}
-        className={`rounded-lg w-1/4 ${
+        className={`rounded-lg w-1/2 ${
           props.position === "top-right"
             ? "right-0 top-0 absolute mr-2 mt-2"
             : ""
@@ -47,6 +48,7 @@ const LeaderboardPage = (
           <thead>
             <tr>
               <th className={"text-2xl font-bold"}>Name</th>
+              <th className={"text-2xl font-bold"}>AVG Points</th>
               <th className={"text-2xl font-bold"}>Points</th>
               <th className={"text-2xl font-bold"}>Wins</th>
               <th className={"text-2xl font-bold"}>Played</th>
@@ -56,7 +58,7 @@ const LeaderboardPage = (
             {!isLoading &&
               !error &&
               data &&
-              (data as Players[])
+              (data as (Players & { averagePoints: number })[])
                 .filter((p) => p.points)
                 .map((player, i) => {
                   const top6 = i < 6;
@@ -66,12 +68,15 @@ const LeaderboardPage = (
                         {player.name}
                       </td>
                       <td className={`text-2xl ${top6 && "text-yellow-500"}`}>
+                        {player.averagePoints.toFixed(2)}
+                      </td>
+                      <td className={`text-2xl ${top6 && "text-yellow-500"}`}>
                         {player.points}
                       </td>
-                      <td className={`text-2xl  ${top6 && "text-yellow-500"}`}>
+                      <td className={`text-2xl ${top6 && "text-yellow-500"}`}>
                         {player.wins}
                       </td>
-                      <td className={`text-2xl  ${top6 && "text-yellow-500"}`}>
+                      <td className={`text-2xl ${top6 && "text-yellow-500"}`}>
                         {player.wins + player.losses}
                       </td>
                     </tr>
@@ -94,7 +99,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   return {
     props: {
       translucent,
-      players: scope === "all" ? await getTopPlayers(max) : [],
+      players: scope === "all" ? await getAverageTopPlayers(max) : [],
       endpoint:
         scope === "all"
           ? "/api/leaderboard"

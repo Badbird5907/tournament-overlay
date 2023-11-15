@@ -1,6 +1,7 @@
-import { PaginationConfig } from "@/types/pagination";
-import { paginatedQuery } from "@/prisma/util";
+import {PaginationConfig} from "@/types/pagination";
+import {fixJson, paginatedQuery} from "@/prisma/util";
 import prisma from "@/prisma";
+import {getPlayersByIds} from "@/prisma/players";
 
 export const getAllMatches = async () => {
   return prisma.matches.findMany({
@@ -19,6 +20,43 @@ export const getMatch = async (id: string) => {
   });
 };
 
+export const getAverageTopPlayers = async (limit: number) => {
+  const d = fixJson(
+    await prisma.matches.aggregateRaw({
+      pipeline: [
+        {
+          $unwind: "$endResult",
+        },
+        {
+          $group: {
+            _id: "$endResult.id",
+            averagePoints: {
+              $avg: "$endResult.pointsGained",
+            },
+          },
+        },
+        {
+          $sort: {
+            averagePoints: -1,
+          },
+        },
+        {
+          $limit: 10,
+        },
+      ],
+    })
+  );
+  const ids = d.map((d: any) => d.id);
+  const players = await getPlayersByIds(ids);
+  // add a field player to the data
+  return d.map((d: any) => {
+    const player = players.find((p) => p.id === d.id);
+    return {
+      ...d,
+      ...player,
+    };
+  });
+};
 export const getMatchesByPlayer = async (playerId: string) => {
   return prisma.matches.findMany({
     where: {
