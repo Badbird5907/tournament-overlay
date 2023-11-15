@@ -49,6 +49,7 @@ const LeaderboardPage = (
               <th className={"text-2xl font-bold"}>Name</th>
               <th className={"text-2xl font-bold"}>Points</th>
               <th className={"text-2xl font-bold"}>Wins</th>
+              <th className={"text-2xl font-bold"}>Played</th>
             </tr>
           </thead>
           <tbody>
@@ -69,6 +70,9 @@ const LeaderboardPage = (
                       </td>
                       <td className={`text-2xl  ${top6 && "text-yellow-500"}`}>
                         {player.wins}
+                      </td>
+                      <td className={`text-2xl  ${top6 && "text-yellow-500"}`}>
+                        {player.wins + player.losses}
                       </td>
                     </tr>
                   );
